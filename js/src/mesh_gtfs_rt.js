@@ -10,6 +10,7 @@ class MeshGTFSR {
         this.client = new MeshClient('http://' + Default.rpcURL, null, null);
         this.subEvents = new Events('sub')
         this.pubEvents = new Events('pus')
+        console.log('sub: ', this.subEvents, new Events('uyuu'))
     }
 
     subscribe() {
@@ -18,35 +19,37 @@ class MeshGTFSR {
 
         let stream = this.client.subscribe(peerTopic, {})
 
+        let ctx = this
+
         stream.on('data', (response) => {
-            if(this.subEvents.get('data') == undefined) {
+            if(ctx.subEvents.get('data') == undefined) {
                 return
             }
 
             var data = FeedMessage.deserializeBinary(new Uint8Array(response.getRaw()))
             
-            this.subEvents.get('data')(data)
+            ctx.subEvents.get('data')(data)
         });
         stream.on('error', (response) => {
-            if(this.subEvents.get('error') == undefined) {
+            if(ctx.subEvents.get('error') == undefined) {
                 return
             }
 
-            this.subEvents.get('error')(response)
+            ctx.subEvents.get('error')(response)
         });
         stream.on('end', (response) => {
-            if(this.subEvents.get('end') == undefined) {
+            if(ctx.subEvents.get('end') == undefined) {
                 return
             }
 
-            this.subEvents.get('end')(response)
+            ctx.subEvents.get('end')(response)
         });
-        stream.on('status', function(status) {
-            if(this.subEvents.get('status') == undefined) {
+        stream.on('status', function(response) {
+            if(ctx.subEvents.get('status') == undefined) {
                 return
             }
 
-            this.subEvents.get('status')(response)
+            ctx.subEvents.get('status')(response)
         });
 
         return this.subEvents
@@ -68,27 +71,29 @@ class MeshGTFSR {
         pubData.setData(data)
 
         let res = this.client.publish(pubData)
+
+        let ctx = this
         
         res.on('status', (res) => {
-            if(this.pubEvents.get('status') == undefined) {
+            if(ctx.pubEvents.get('status') == undefined) {
                 return
             }
 
-            this.pubEvents.get('status')(res)
+            ctx.pubEvents.get('status')(res)
         })
         res.on('data', (res) => {
-            if(this.pubEvents.get('data') == undefined) {
+            if(ctx.pubEvents.get('data') == undefined) {
                 return
             }
 
-            this.pubEvents.get('data')(res)
+            ctx.pubEvents.get('data')(res)
         })
         res.on('error', (res) => {
-            if(this.pubEvents.get('error') == undefined) {
+            if(ctx.pubEvents.get('error') == undefined) {
                 return
             }
 
-            this.pubEvents.get('error')(res)
+            ctx.pubEvents.get('error')(res)
         })
 
         return this.pubEvents
@@ -96,14 +101,6 @@ class MeshGTFSR {
 }
 
 export { MeshGTFSR }
-
-let meshGtfsR = new MeshGTFSR()
-/* mesh.on('data', (res) => {
-    console.log(res)
-}) */
-meshGtfsR.subscribe().on('data', res => {
-    console.log(res)
-})
 
 /* let fm = new FeedMessage()
 let fh = new FeedHeader()

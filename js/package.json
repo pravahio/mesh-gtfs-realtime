@@ -4,7 +4,7 @@
     "description": "",
     "main": "mesh.js",
     "scripts": {
-        "pack": "npx webpack -o example/dist/mesh_gtfs_rt.js --mode development mesh_gtfs_rt.js",
+        "pack": "webpack",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "",
