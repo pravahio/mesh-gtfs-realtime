@@ -101,20 +101,3 @@ class MeshGTFSR {
 }
 
 export { MeshGTFSR }
-
-/* let fm = new FeedMessage()
-let fh = new FeedHeader()
-fh.setGtfsRealtimeVersion("2.0")
-fh.setTimestamp(1535647364)
-
-let fe = new FeedEntity()
-fe.setId("ewrwrer")
-
-fm.setHeader(fh)
-fm.addEntity(fe)
-
-console.log(fm)
-
-mesh.publish(fm) */
-
-
