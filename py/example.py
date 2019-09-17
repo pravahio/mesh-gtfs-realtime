@@ -23,10 +23,14 @@ def main(argv):
 			print(e.getMessage())
 
 def sub(m):
-	feed = m.subscribe()
+	feed = m.subscribe([
+		'/in/haryana/gurugram',
+		'/in/delhi'
+	])
 
-	for f in feed:
+	for f, t in feed:
 		print(f) 
+		print('Topic: ' + str(t))
 
 def pub(m):
 	rt = {
@@ -46,10 +50,15 @@ def pub(m):
 		]
 	}
 
-	m.registerToPublish()
+	geo = [
+		'/in/har/ggn',
+		'/in/del'
+	]
+
+	m.registerToPublish(geo)
 
 	for i in range(100):
-		m.publish(rt)
+		m.publish(geo, rt)
 		time.sleep(5)
 
 if "__main__" == __name__:
