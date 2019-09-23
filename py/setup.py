@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mesh_gtfsr",
-    version="0.0.7",
+    version="0.0.9",
     author="Abhishek Upperwal",
     author_email="mesh@soket.in",
     description="GTFS-Realtime client for mesh-pravah",
