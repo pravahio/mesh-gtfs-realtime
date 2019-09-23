@@ -25,11 +25,13 @@ def main(argv):
 def sub(m):
 	feed = m.subscribe([
 		'/in/haryana/gurugram',
-		'/in/delhi'
+		'/in/delhi',
+		'/in/mp/indore',
+		'/in/karnataka/mysore'
 	])
 
 	for f, t in feed:
-		print(f) 
+		#print(f) 
 		print('Topic: ' + str(t))
 
 def pub(m):
