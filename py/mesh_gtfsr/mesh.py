@@ -16,10 +16,12 @@ class MeshGTFSR(MeshRPC):
 
         feed = FeedMessage()
 
+        channelLen = len(Default.topic)
+
         try:
             for msg in s:
                 feed.ParseFromString(msg.raw)
-                yield feed, msg.topic
+                yield feed, msg.topic.pop()[channelLen:]
         except grpc.RpcError as e:
             raise MeshRPCException(e.details())
         
