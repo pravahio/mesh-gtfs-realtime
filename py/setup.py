@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="mesh_gtfsr",
-    version="0.0.4",
+    version="0.0.9",
     author="Abhishek Upperwal",
     author_email="mesh@soket.in",
     description="GTFS-Realtime client for mesh-pravah",
@@ -18,4 +18,8 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    install_requires = [
+        'mesh_rpc',
+        'dict_to_protobuf'
+    ]
 )
