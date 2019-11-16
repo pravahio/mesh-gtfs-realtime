@@ -2,6 +2,7 @@ package meshgtfsr
 
 import (
 	"context"
+	"errors"
 
 	"github.com/gogo/protobuf/proto"
 	rmesh "github.com/pravahio/cross-lang-mesh-rpc/go/rmesh"
@@ -47,6 +48,21 @@ func (m *MeshGTFSR) Subscribe(ctx context.Context, geospace []string) error {
 
 	return nil
 }
+
+func (m *MeshGTFSR) RegisterToPublish(ctx context.Context, geospace []string) error {
+	res, err := m.mrpc.RegisterToPublish(ctx, channel, geospace)
+	if err != nil {
+		return err
+	}
+
+	if res != "" {
+		return errors.New(res)
+	}
+
+	return nil
+}
+
+/* func (m *MeshGTFSR) Publish(ctx context.Context, geospace []string, ) error { */
 
 func (m *MeshGTFSR) processMsgs() {
 	for {
