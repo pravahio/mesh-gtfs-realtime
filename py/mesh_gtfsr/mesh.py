@@ -24,12 +24,24 @@ class MeshGTFSR(MeshRPC):
                 yield feed, msg.topic.pop()[channelLen:]
         except grpc.RpcError as e:
             raise MeshRPCException(e.details())
+    
+    def unsubscribe(self, geospace):
+
+        s = super().unsubscribe(Default.topic, geospace)
+
+        return s
         
     def registerToPublish(self, geospace):
         try:
             super().registerToPublish(Default.topic, geospace)
         except MeshRPCException as e:
             raise 
+    
+    def unregisterToPublish(self, geospace):
+        try:
+            super().unregisterToPublish(Default.topic, geospace)
+        except MeshRPCException as e:
+            raise
 
     def publish(self, geospace, d):
 
