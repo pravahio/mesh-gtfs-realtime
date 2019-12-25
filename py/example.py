@@ -30,9 +30,23 @@ def sub(m):
 		'/in/karnataka/mysore'
 	])
 
+	i = 0
 	for f, t in feed:
 		#print(f) 
+		i += 1
+		if i == 10:
+			break
 		print('Topic: ' + str(t))
+	
+	print('Unsubscribing')
+	r = m.unsubscribe([
+		'/in/haryana/gurugram',
+		'/in/delhi',
+		'/in/mp/indore',
+		'/in/karnataka/mysore'
+	])
+
+	print(r)
 
 def pub(m):
 	rt = {
