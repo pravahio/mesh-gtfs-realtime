@@ -58,3 +58,6 @@ class MeshGTFSR(MeshRPC):
         except MeshRPCException as e:
             raise 
     
+    def get_channel(self):
+        return Default.topic
+    
